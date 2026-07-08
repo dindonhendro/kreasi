@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pottery &amp; Keramik — Pengalaman kreasi.art</title>
+<meta name="description" content="Terapi paling jujur: tanah liat di kedua tangan — workshop Pottery di kreasi.art">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --concrete:#d4cfc8;--concrete-dim:#9e9890;--stone:#706050;--charcoal:#1a1816;
+  --ink:#0e0d0c;--warm-white:#f4f0ea;--warm-white-dim:#c8c0b4;
+  --accent:#e09a6a;--accent2:#c05f38;
+  --accent-glow:color-mix(in srgb, #e09a6a 35%, transparent);
+  --accent-soft:color-mix(in srgb, #e09a6a 8%, transparent);
+  --heading:'Playfair Display','Georgia',serif;--body:'DM Sans',-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--ink);color:var(--warm-white);font-family:var(--body);font-weight:300;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+@media(pointer:fine){body{cursor:none}a,button{cursor:none}}
+
+#cursor-dot{position:fixed;width:6px;height:6px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(244,240,234,.35);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .35s,height .35s,border-color .35s,box-shadow .35s}
+#cursor-ring.hover{width:56px;height:56px;border-color:var(--accent);box-shadow:0 0 24px var(--accent-glow)}
+@media(pointer:coarse){#cursor-dot,#cursor-ring{display:none}}
+
+.grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vignette{position:fixed;inset:0;z-index:99;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(14,13,12,.45) 100%)}
+#particles{position:fixed;inset:0;z-index:15;pointer-events:none;opacity:.4}
+
+#loader{position:fixed;inset:0;z-index:9999;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .8s,filter .8s}
+#loader.done{opacity:0;filter:blur(8px);pointer-events:none}
+#loader .brand{font-family:var(--heading);font-size:22px;letter-spacing:.45em;text-transform:uppercase;font-weight:300}
+#loader .brand em{font-style:italic;color:var(--accent)}
+#loader .line{width:56px;height:1px;background:var(--stone)}
+#loader .bar{width:140px;height:2px;background:rgba(244,240,234,.1);border-radius:2px;overflow:hidden}
+#loader .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px}
+#loader .pct{font-size:10px;letter-spacing:.3em;color:var(--concrete-dim)}
+
+.markers{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:0}
+.markers .dot{width:7px;height:7px;border-radius:50%;background:rgba(244,240,234,.22);transition:background .4s,box-shadow .4s}
+.markers .dot.active{background:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
+.markers .link{width:1px;height:26px;background:rgba(244,240,234,.14);position:relative;overflow:hidden}
+.markers .link i{position:absolute;top:0;left:0;width:100%;height:0%;background:var(--accent)}
+@media(max-width:760px){.markers{display:none}}
+
+.anim{position:relative;height:500vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden}
+#frame-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.grad-left{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,13,12,.72) 0%,rgba(14,13,12,.28) 38%,transparent 62%)}
+.grad-bottom{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 62%,rgba(14,13,12,.66) 100%)}
+#tint{position:absolute;inset:0;z-index:5;pointer-events:none;transition:background 1.2s}
+
+.stext{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:10;display:flex;align-items:center;padding:0 6%;opacity:0;pointer-events:none;filter:blur(6px);transform:translateX(-20px);transition:opacity .8s,filter .8s,transform .8s}
+.stext.visible{opacity:1;filter:blur(0);transform:translateX(0);pointer-events:auto}
+.stext .inner{max-width:560px}
+.overline{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.overline::before{content:'';width:28px;height:1px;background:var(--accent)}
+.stext h1{font-family:var(--heading);font-weight:300;font-size:clamp(42px,5.5vw,76px);line-height:1.04;letter-spacing:-.01em}
+.stext h1 em{font-style:italic;color:var(--accent)}
+.stext h2{font-family:var(--heading);font-weight:300;font-size:clamp(28px,3.4vw,44px);line-height:1.12;margin-bottom:18px}
+.stext h2 em{font-style:italic;color:var(--accent)}
+.stext p.body{color:var(--warm-white-dim);font-size:15px;line-height:1.75;max-width:46ch}
+.tagline{margin-top:16px;color:var(--warm-white-dim);font-size:15px;letter-spacing:.04em}
+.split span{display:inline-block;opacity:0;transform:translateY(24px) rotate(3deg);transition:opacity .6s,transform .6s}
+.visible .split span{opacity:1;transform:none}
+
+.statbar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;gap:0;padding:0 6% 26px;opacity:0;transform:translateY(16px);transition:opacity .8s .2s,transform .8s .2s;pointer-events:none}
+.statbar.visible{opacity:1;transform:none}
+.statbar .cell{background:rgba(244,240,234,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(244,240,234,.06);padding:16px 30px;text-align:center;min-width:120px}
+.statbar .cell+.cell{border-left:none}
+.statbar .num{font-family:var(--heading);font-size:26px;color:var(--warm-white)}
+.statbar .num i{font-style:normal;color:var(--accent);font-size:16px}
+.statbar .lbl{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--concrete-dim);margin-top:5px}
+@media(max-width:760px){.statbar{flex-wrap:wrap}.statbar .cell{flex:1 1 40%;min-width:0;padding:12px 10px}}
+
+.qmark{font-family:var(--heading);font-size:110px;line-height:.6;color:var(--accent);opacity:.5}
+blockquote{font-family:var(--heading);font-style:italic;font-weight:300;font-size:clamp(22px,2.9vw,36px);line-height:1.4;margin:18px 0 26px;max-width:20em}
+.divider{width:44px;height:1px;background:var(--accent);margin-bottom:16px}
+.attrib{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--concrete-dim)}
+
+.feat{list-style:none;margin-top:26px}
+.feat li{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(244,240,234,.08);font-size:14px;color:var(--warm-white-dim)}
+.feat li::before{content:'✦';color:var(--accent);font-size:11px}
+
+.ggrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px;max-width:600px}
+.gcell{background:rgba(244,240,234,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(244,240,234,.06);padding:18px;transition:background .4s,border-color .4s}
+.gcell:hover{background:rgba(244,240,234,.06);border-color:var(--accent-glow)}
+.gcell .ic{color:var(--accent);font-size:16px;margin-bottom:8px}
+.gcell .t{font-size:13px;font-weight:500;letter-spacing:.04em;margin-bottom:4px}
+.gcell .d{font-size:11.5px;color:var(--concrete-dim);line-height:1.5}
+@media(max-width:600px){.ggrid{grid-template-columns:1fr}}
+
+.dlist{margin-top:24px}
+.dlist .row{display:flex;align-items:baseline;gap:10px;padding:11px 0;font-size:13.5px}
+.dlist .k{color:var(--warm-white-dim);white-space:nowrap}
+.dlist .dotline{flex:1;border-bottom:1px dotted rgba(244,240,234,.2);transform:translateY(-3px)}
+.dlist .v{color:var(--concrete-dim);text-align:right}
+
+.cta-sec{justify-content:center;text-align:center;padding:0 6%}
+.cta-sec .inner{max-width:640px;margin:0 auto}
+.btns{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-block;padding:15px 34px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;border:1px solid var(--accent);transition:background .4s,color .4s,box-shadow .4s}
+.btn.primary{background:var(--accent);color:var(--ink)}
+.btn.primary:hover{box-shadow:0 0 34px var(--accent-glow)}
+.btn.ghost{color:var(--warm-white)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.contact{margin-top:34px;display:inline-flex;align-items:center;gap:14px;background:rgba(244,240,234,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(244,240,234,.06);padding:14px 26px}
+.contact .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-family:var(--heading);color:var(--ink);font-size:16px}
+.contact .nm{font-size:13px;font-weight:500;text-align:left}
+.contact .rl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--concrete-dim);text-align:left}
+
+.gallery{padding:110px 6% 60px;background:var(--ink)}
+.gallery .ghead{margin-bottom:44px}
+.ggal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gitem{overflow:hidden;opacity:0;transform:translateY(34px);transition:opacity .9s,transform .9s;position:relative}
+.gitem.in{opacity:1;transform:none}
+.gitem img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.gitem:hover img{transform:scale(1.03)}
+.gitem.tall{grid-row:span 2}
+@media(max-width:760px){.ggal{grid-template-columns:repeat(2,1fr)}}
+
+footer{padding:44px 6%;background:#131110;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
+footer .fb{font-family:var(--heading);font-size:19px}
+footer .fb em{font-style:italic;color:var(--accent)}
+footer .legal{font-size:11px;color:var(--concrete-dim);letter-spacing:.06em}
+
+@media(prefers-reduced-motion:reduce){
+  .stext,.statbar,.gitem{transition:none}
+  #cursor-dot,#cursor-ring{display:none}
+}
+</style>
+</head>
+<body>
+<div id="cursor-dot"></div><div id="cursor-ring"></div>
+<div class="grain"></div><div class="vignette"></div>
+<canvas id="particles"></canvas>
+
+<div id="loader">
+  <div class="line"></div>
+  <div class="brand">kreasi<em>.art</em></div>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <div class="pct" id="pct">0%</div>
+  <div class="line"></div>
+</div>
+
+<nav class="markers" id="markers" aria-hidden="true"><div class="dot" data-i="0"></div><div class="link"><i></i></div><div class="dot" data-i="1"></div><div class="link"><i></i></div><div class="dot" data-i="2"></div><div class="link"><i></i></div><div class="dot" data-i="3"></div><div class="link"><i></i></div><div class="dot" data-i="4"></div><div class="link"><i></i></div><div class="dot" data-i="5"></div></nav>
+
+<section class="anim" id="anim">
+  <div class="stage">
+    <canvas id="frame-canvas"></canvas>
+    <div class="grad-left"></div><div class="grad-bottom"></div><div id="tint"></div>
+  </div>
+
+  <div class="stext" data-show-at="0" data-hide-at="0.14">
+    <div class="inner">
+      <div class="overline">Workshop Pottery — kreasi.art</div>
+      <h1 class="split" data-split>Pottery &amp; Keramik</h1>
+      <p class="tagline">Terapi paling jujur: tanah liat di kedua tangan</p>
+    </div>
+  </div>
+  <div class="statbar" data-show-at="0" data-hide-at="0.14"><div class="cell"><div class="num"><span data-target="2.5">0</span></div><div class="lbl">Jam Sesi</div></div><div class="cell"><div class="num"><span data-target="10">0</span></div><div class="lbl">Peserta Maks</div></div><div class="cell"><div class="num"><span data-target="425">0</span></div><div class="lbl">Ribu Rupiah</div></div><div class="cell"><div class="num"><span data-target="4.9">0</span><i>★</i></div><div class="lbl">Rating</div></div></div>
+
+  <div class="stext" data-show-at="0.16" data-hide-at="0.30">
+    <div class="inner">
+      <div class="qmark">“</div>
+      <blockquote>Tanah liat tidak bisa dibohongi. Ia memaksa tanganmu hadir sepenuhnya — dan di situlah pikiran mulai diam.</blockquote>
+      <div class="divider"></div>
+      <div class="attrib">Mas Bayu Aji — Instruktur Keramik</div>
+    </div>
+  </div>
+
+  <div class="stext" data-show-at="0.33" data-hide-at="0.47">
+    <div class="inner">
+      <div class="overline">Yang Akan Kamu Pelajari</div>
+      <h2>Dari gumpalan menjadi wadah</h2>
+      <p class="body">Mulai dari teknik pinch dan coil untuk membentuk mug atau mangkuk, hingga sesi roda putar intensif bagi yang ingin melangkah lebih jauh. Karya dibakar di kiln studio dan siap diambil dua minggu kemudian.</p>
+      <ul class="feat"><li>Teknik pinch &amp; coil</li><li>Wheel throwing untuk pemula</li><li>Trimming &amp; tekstur</li><li>Glasir &amp; pembakaran kiln</li></ul>
+    </div>
+  </div>
+
+  <div class="stext" data-show-at="0.50" data-hide-at="0.64">
+    <div class="inner" style="max-width:640px">
+      <div class="overline">Termasuk Dalam Sesi</div>
+      <div class="ggrid"><div class="gcell"><div class="ic">✦</div><div class="t">Tanah Liat Premium</div><div class="d">Stoneware halus siap bentuk</div></div><div class="gcell"><div class="ic">❋</div><div class="t">Kelas Kecil</div><div class="d">Maks. 6–10 peserta per sesi</div></div><div class="gcell"><div class="ic">⚙</div><div class="t">Roda Putar</div><div class="d">Sesi intensif dengan pendampingan penuh</div></div><div class="gcell"><div class="ic">🔥</div><div class="t">Pembakaran Kiln</div><div class="d">Karya dibakar hingga 1200°C</div></div><div class="gcell"><div class="ic">⌂</div><div class="t">Karya Dibawa Pulang</div><div class="d">Mug atau mangkuk buatanmu</div></div><div class="gcell"><div class="ic">✉</div><div class="t">Sesi Privat</div><div class="d">Cocok untuk gathering kantor</div></div></div>
+    </div>
+  </div>
+
+  <div class="stext" data-show-at="0.67" data-hide-at="0.80">
+    <div class="inner">
+      <div class="overline">Untuk Siapa</div>
+      <h2>Pelan-pelan saja</h2>
+      <p class="body">Memusatkan tanah di atas roda butuh kesabaran — dan justru itulah terapinya. Instruktur menemani sampai tanganmu menemukan iramanya sendiri.</p>
+      <div class="dlist"><div class="row"><span class="k">Hand-building</span><span class="dotline"></span><span class="v">Mug &amp; mangkuk, 2.5 jam</span></div><div class="row"><span class="k">Wheel throwing</span><span class="dotline"></span><span class="v">Maks. 6 orang, 3.5 jam</span></div><div class="row"><span class="k">Pengambilan karya</span><span class="dotline"></span><span class="v">2 minggu setelah sesi</span></div></div>
+    </div>
+  </div>
+
+  <div class="stext cta-sec" data-show-at="0.84" data-hide-at="1.01">
+    <div class="inner">
+      <h2 style="font-size:clamp(34px,4.6vw,58px)">Pikiranmu berhak <em>beristirahat</em></h2>
+      <p class="body" style="margin:0 auto">Kursi workshop Pottery terbatas setiap minggunya. Amankan sesimu sekarang.</p>
+      <div class="btns">
+        <a class="btn primary" href="/#workshops">Daftar Workshop</a>
+        <a class="btn ghost" href="/">Kembali ke Studio</a>
+      </div>
+      <div class="contact">
+        <div class="av">k</div>
+        <div><div class="nm">Mas Bayu Aji</div><div class="rl">Instruktur Keramik</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="ghead">
+    <div class="overline">Galeri Suasana</div>
+    <h2 style="font-family:var(--heading);font-weight:300;font-size:clamp(26px,3.4vw,40px)">Warna yang <em style="color:var(--accent)">bergerak</em></h2>
+  </div>
+  <div class="ggal"><div class="gitem tall" data-parallax="12"><img loading="lazy" src="frames/desktop/frame-0001.webp" alt="Suasana workshop Pottery 1"></div><div class="gitem" data-parallax="-14"><img loading="lazy" src="frames/desktop/frame-0013.webp" alt="Suasana workshop Pottery 2"></div><div class="gitem" data-parallax="12"><img loading="lazy" src="frames/desktop/frame-0025.webp" alt="Suasana workshop Pottery 3"></div><div class="gitem" data-parallax="-14"><img loading="lazy" src="frames/desktop/frame-0037.webp" alt="Suasana workshop Pottery 4"></div><div class="gitem tall" data-parallax="12"><img loading="lazy" src="frames/desktop/frame-0048.webp" alt="Suasana workshop Pottery 5"></div><div class="gitem" data-parallax="-14"><img loading="lazy" src="frames/desktop/frame-0060.webp" alt="Suasana workshop Pottery 6"></div><div class="gitem" data-parallax="12"><img loading="lazy" src="frames/desktop/frame-0072.webp" alt="Suasana workshop Pottery 7"></div></div>
+</section>
+
+<footer>
+  <div class="fb">kreasi<em>.art</em></div>
+  <div class="legal">Terapi Seni Kreatif — Menenangkan Pikiran Sambil Berkarya</div>
+</footer>
+
+<script>
+(() => {
+const FRAME_COUNT=72;
+const IS_MOBILE=matchMedia('(max-width:760px)').matches;
+const DIR=IS_MOBILE?'frames/mobile':'frames/desktop';
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pad=n=>String(n+1).padStart(4,'0');
+
+/* cursor */
+const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hover'));el.addEventListener('mouseleave',()=>ring.classList.remove('hover'))});
+
+/* particles */
+const pc=document.getElementById('particles'),px=pc.getContext('2d');
+let parts=[];
+function sizeP(){pc.width=innerWidth;pc.height=innerHeight}
+sizeP();addEventListener('resize',sizeP);
+for(let i=0;i<40;i++)parts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:.3+Math.random()*1.5,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.12,o:.05+Math.random()*.3});
+
+/* letter split */
+document.querySelectorAll('[data-split]').forEach(el=>{
+  const parts=el.textContent.split(' ');
+  el.innerHTML=parts.map(w=>'<span style="white-space:nowrap">'+[...w].map(ch=>'<span>'+ch+'</span>').join('')+'</span>').join(' ');
+  el.querySelectorAll('span span').forEach((s,i)=>s.style.transitionDelay=(i*28)+'ms');
+});
+
+/* dwell remap */
+const CENTERS=[0.07,0.23,0.40,0.57,0.735,0.92],DW=0.045,DP=3.5,N=2000;
+const cum=new Float32Array(N+1);let acc=0;
+for(let i=0;i<=N;i++){const p=i/N;let d=1;for(const cc of CENTERS)d+=DP*Math.exp(-((p-cc)**2)/(2*DW*DW));acc+=d;cum[i]=acc}
+for(let i=0;i<=N;i++)cum[i]/=acc;
+function remap(p){
+  if(p<=0)return 0;if(p>=1)return 1;
+  let lo=0,hi=N;
+  while(lo<hi){const mid=(lo+hi)>>1;if(cum[mid]<p)lo=mid+1;else hi=mid}
+  return lo/N;
+}
+
+/* frames */
+const canvas=document.getElementById('frame-canvas'),ctx=canvas.getContext('2d');
+const frames=new Array(FRAME_COUNT).fill(null);
+let loaded=0;
+const fill=document.getElementById('fill'),pctEl=document.getElementById('pct'),loader=document.getElementById('loader');
+function sizeC(){const dpr=Math.min(2,devicePixelRatio||1);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr}
+sizeC();addEventListener('resize',()=>{sizeC();draw(Math.round(cur))});
+function load(i){return new Promise(res=>{const img=new Image();img.onload=()=>{frames[i]=img;loaded++;const p=Math.round(100*loaded/FRAME_COUNT);fill.style.width=p+'%';pctEl.textContent=p+'%';res()};img.onerror=res;img.src=DIR+'/frame-'+pad(i)+'.webp'})}
+function nearest(i){for(let d=0;d<FRAME_COUNT;d++){if(frames[i-d])return frames[i-d];if(frames[i+d])return frames[i+d]}return null}
+function draw(i){
+  const img=nearest(Math.max(0,Math.min(FRAME_COUNT-1,i)));
+  if(!img)return;
+  const cw=canvas.width,ch=canvas.height,ir=img.width/img.height,cr=cw/ch;
+  let dw,dh;if(cr>ir){dw=cw;dh=cw/ir}else{dh=ch;dw=ch*ir}
+  ctx.drawImage(img,(cw-dw)/2,(ch-dh)/2,dw,dh);
+}
+
+/* scroll state */
+const anim=document.getElementById('anim');
+const texts=[...document.querySelectorAll('[data-show-at]')];
+const dots=[...document.querySelectorAll('.markers .dot')];
+const links=[...document.querySelectorAll('.markers .link i')];
+const tint=document.getElementById('tint');
+let cur=0,statsDone=false;
+const LERP=REDUCED?1:0.09;
+function progress(){const r=anim.getBoundingClientRect();return Math.max(0,Math.min(1,-r.top/(r.height-innerHeight)))}
+
+function counters(){
+  if(statsDone)return;statsDone=true;
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const t=parseFloat(el.dataset.target),dec=String(el.dataset.target).includes('.');
+    const t0=performance.now();
+    (function step(now){const k=Math.min(1,(now-t0)/1500),e=1-Math.pow(1-k,3);
+      el.textContent=dec?(t*e).toFixed(1):Math.round(t*e);
+      if(k<1)requestAnimationFrame(step)})(t0);
+  });
+}
+
+function tick(){
+  const raw=progress(),p=REDUCED?raw:remap(raw);
+  const target=p*(FRAME_COUNT-1);
+  cur+=(target-cur)*LERP;
+  draw(Math.round(cur));
+
+  texts.forEach(el=>{
+    const a=parseFloat(el.dataset.showAt),b=parseFloat(el.dataset.hideAt);
+    el.classList.toggle('visible',raw>=a&&raw<b);
+  });
+  if(raw<0.14)counters();
+
+  let sec=0;const B=[0.16,0.33,0.50,0.67,0.84,2];
+  for(let i=0;i<B.length;i++){if(raw<B[i]){sec=i;break}}
+  dots.forEach((d,i)=>d.classList.toggle('active',i===sec));
+  const starts=[0,0.16,0.33,0.50,0.67,0.84];
+  links.forEach((l,i)=>{
+    const s=starts[i+1]-0.16<raw?1:Math.max(0,Math.min(1,(raw-starts[i])/(starts[i+1]-starts[i])));
+    l.style.height=(s*100)+'%';
+  });
+
+  tint.style.background='linear-gradient(135deg,color-mix(in srgb,var(--accent) '+(6-sec*0.4)+'%,transparent),color-mix(in srgb,var(--accent2) 4%,transparent))';
+
+  /* cursor ring lerp */
+  rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+
+  /* particles */
+  px.clearRect(0,0,pc.width,pc.height);
+  for(const q of parts){
+    q.x+=q.vx;q.y+=q.vy;
+    if(q.x<0)q.x=pc.width;if(q.x>pc.width)q.x=0;
+    if(q.y<0)q.y=pc.height;if(q.y>pc.height)q.y=0;
+    px.globalAlpha=q.o;px.fillStyle='#f4f0ea';
+    px.beginPath();px.arc(q.x,q.y,q.r,0,7);px.fill();
+  }
+  requestAnimationFrame(tick);
+}
+
+/* gallery reveal + parallax */
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.15});
+document.querySelectorAll('.gitem').forEach(g=>io.observe(g));
+addEventListener('scroll',()=>{
+  document.querySelectorAll('[data-parallax]').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<innerHeight&&r.bottom>0){
+      const k=(r.top+r.height/2-innerHeight/2)/innerHeight;
+      el.querySelector('img').style.transform='translateY('+(k*parseFloat(el.dataset.parallax))+'px)';
+    }
+  });
+},{passive:true});
+
+/* boot: critical frames first, then the rest */
+(async()=>{
+  const critical=[];
+  for(let i=0;i<FRAME_COUNT;i+=8)critical.push(i);
+  if(!critical.includes(FRAME_COUNT-1))critical.push(FRAME_COUNT-1);
+  await Promise.all(critical.map(load));
+  draw(0);
+  loader.classList.add('done');
+  tick();
+  const rest=[];for(let i=0;i<FRAME_COUNT;i++)if(!frames[i])rest.push(i);
+  for(let i=0;i<rest.length;i+=12)await Promise.all(rest.slice(i,i+12).map(load));
+})();
+})();
+</script>
+</body>
+</html>
