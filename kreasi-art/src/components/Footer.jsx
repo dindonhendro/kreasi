@@ -65,7 +65,7 @@ export default function Footer() {
           <div className="footer__inner">
             <div>
               <div className="footer__logo">
-                kreasi<em>.art</em>
+                arte<em>.coffee</em>
               </div>
               <p className="footer__tag">
                 Terapi Seni Kreatif: Menenangkan Pikiran Sambil Berkarya.
@@ -77,6 +77,7 @@ export default function Footer() {
                 <a href="#tentang" onClick={(e) => { e.preventDefault(); scrollToTarget('#tentang') }}>Tentang</a>
                 <a href="#kategori" onClick={(e) => { e.preventDefault(); scrollToTarget('#kategori') }}>Kategori</a>
                 <a href="#workshops" onClick={(e) => { e.preventDefault(); scrollToTarget('#workshops') }}>Workshop</a>
+                <a href="#cafe" onClick={(e) => { e.preventDefault(); scrollToTarget('#cafe') }}>Café</a>
               </div>
               <div className="footer__col">
                 <h4>Studio</h4>

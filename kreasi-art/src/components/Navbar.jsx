@@ -7,6 +7,7 @@ const LINKS = [
   { href: '#tentang', label: 'Tentang' },
   { href: '#kategori', label: 'Kategori' },
   { href: '#workshops', label: 'Workshop' },
+  { href: '#cafe', label: 'Café' },
   { href: '#perjalanan', label: 'Cara Ikut' },
 ]
 
@@ -68,7 +69,7 @@ export default function Navbar() {
       <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container nav__inner">
           <a href="#beranda" className="nav__logo" onClick={(e) => go(e, '#beranda')}>
-            kreasi<em>.art</em>
+            arte<em>.coffee</em>
           </a>
           <nav className="nav__links" aria-label="Navigasi utama">
             {LINKS.map((l) => (

@@ -12,6 +12,7 @@ import Categories from './components/Categories.jsx'
 import Workshops from './components/Workshops.jsx'
 import WorkshopModal from './components/WorkshopModal.jsx'
 import Journey from './components/Journey.jsx'
+import Cafe from './components/Cafe.jsx'
 import Footer from './components/Footer.jsx'
 import Portal from './components/Portal.jsx'
 import { useLenis } from './hooks/useLenis.js'
@@ -115,6 +116,7 @@ export default function App() {
         <About />
         <Categories />
         <Workshops />
+        <Cafe />
         <Journey />
         <Footer />
       </main>

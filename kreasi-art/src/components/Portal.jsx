@@ -568,7 +568,7 @@ export default function Portal() {
         <div className="portal__head">
           <div>
             <div className="portal__logo">
-              kreasi<em>.art</em> <span>Studio Portal</span>
+              arte<em>.coffee</em> <span>Studio Portal</span>
             </div>
             {user && profile && (
               <div className="portal__whoami">
