@@ -42,6 +42,12 @@ export default function Hero() {
     }
   }, [loaded])
 
+  const playRandomVibe = () => {
+    const categories = ['batik', 'pottery', 'painting', 'punchneedle', 'journaling', 'tiedye']
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)]
+    window.open(`/experience/${randomCategory}/index.html`, '_blank')
+  }
+
   return (
     <section id="beranda" className="hero" data-theme="studio" ref={root}>
       <div className="container">
@@ -62,6 +68,13 @@ export default function Hero() {
           </button>
           <button className="btn btn--ghost" onClick={() => scrollToTarget('#tentang')}>
             Kenali Studio Kami
+          </button>
+          <button
+            className="btn btn--ghost"
+            style={{ color: 'var(--accent)', borderColor: 'var(--accent)' }}
+            onClick={playRandomVibe}
+          >
+            ✦ Rasakan Vibe Acak
           </button>
         </div>
       </div>
