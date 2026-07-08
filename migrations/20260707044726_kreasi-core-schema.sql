@@ -1,4 +1,4 @@
--- kreasi.art core schema (PRD §6)
+-- arte.coffee core schema (PRD §6)
 -- Models: profiles (users/instructors), workshops, workshop_schedules (slots),
 -- registrations. Seat counts are server-maintained via trigger so the site can
 -- show real-time availability and never overbook.

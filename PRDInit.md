@@ -1,6 +1,6 @@
-Product Requirements Document (PRD): kreasi.art
+Product Requirements Document (PRD): arte.coffee
 1. Executive Summary
-kreasi.art is a premium, award-winning digital platform designed as a sanctuary for creative therapy and artistic workshops. The website embodies the tagline "Terapi Seni Kreatif: Menenangkan Pikiran Sambil Berkarya," positioning itself as the premier destination for individuals seeking mental wellness through artistic expression. Targeting all age groups, the platform bridges traditional art forms with modern digital experience, offering workshops ranging from Batik (using the Gutta Tamarind method) and Pottery to contemporary crafts like Punch Needle and Journaling.
+arte.coffee is a premium, award-winning digital platform designed as a sanctuary for creative therapy and artistic workshops. The website embodies the tagline "Terapi Seni Kreatif: Menenangkan Pikiran Sambil Berkarya," positioning itself as the premier destination for individuals seeking mental wellness through artistic expression. Targeting all age groups, the platform bridges traditional art forms with modern digital experience, offering workshops ranging from Batik (using the Gutta Tamarind method) and Pottery to contemporary crafts like Punch Needle and Journaling.
 
 2. Vision & Strategic Objectives
 Immersive Experience: Create a digital environment that feels like an art studio, utilizing cutting-edge web technologies to evoke creativity and calmness.
@@ -100,4 +100,4 @@ Animation Layer: GSAP orchestrating DOM and 3D object animations simultaneously.
 
 Transition Layer: Barba.js handling navigation between "pages" without reloading the 3D scene.
 
-This structure ensures that kreasi.art is not just a website, but an experience that embodies the therapeutic power of art.
+This structure ensures that arte.coffee is not just a website, but an experience that embodies the therapeutic power of art.

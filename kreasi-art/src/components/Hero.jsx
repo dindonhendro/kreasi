@@ -53,7 +53,7 @@ export default function Hero() {
           Menenangkan <em>pikiran,</em> sambil berkarya
         </h1>
         <p className="hero__sub">
-          kreasi.art adalah ruang aman untuk melepas penat lewat seni. Dari batik gutta
+          arte.coffee adalah ruang aman untuk melepas penat lewat seni. Dari batik gutta
           tamarind hingga pottery — tak perlu bakat, cukup rasa ingin mencoba.
         </p>
         <div className="hero__actions">

@@ -80,7 +80,7 @@ export default function Footer() {
               </div>
               <div className="footer__col">
                 <h4>Studio</h4>
-                <a href="mailto:halo@kreasi.art">halo@kreasi.art</a>
+                <a href="mailto:halo@arte.coffee">halo@arte.coffee</a>
                 <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
                 <a href="https://wa.me/6281200000000" target="_blank" rel="noreferrer">WhatsApp</a>
               </div>
@@ -92,7 +92,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="footer__base">
-            <span>© {year} kreasi.art — Semua karya milik pembuatnya.</span>
+            <span>© {year} arte.coffee — Semua karya milik pembuatnya.</span>
             <span>Dibuat dengan tanah liat, benang, dan sedikit kode.</span>
           </div>
         </div>

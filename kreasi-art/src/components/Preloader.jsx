@@ -35,11 +35,11 @@ export default function Preloader() {
     return () => tl.kill()
   }, [setLoaded])
 
-  const word = 'kreasi.art'
+  const word = 'arte.coffee'
 
   return (
     <div className="preloader" ref={root}>
-      <div className="preloader__logo" aria-label="kreasi.art">
+      <div className="preloader__logo" aria-label="arte.coffee">
         {word.split('').map((ch, i) => (
           <span key={i}>{ch}</span>
         ))}

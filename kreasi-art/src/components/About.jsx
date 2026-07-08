@@ -64,7 +64,7 @@ export default function About() {
               Studio digital yang terasa seperti <em>rumah seni</em>
             </h2>
             <p>
-              Di tengah hari-hari yang riuh, <strong>kreasi.art</strong> hadir sebagai
+              Di tengah hari-hari yang riuh, <strong>arte.coffee</strong> hadir sebagai
               tempat berteduh. Kami percaya proses berkarya — memijat tanah liat,
               menorehkan gutta di atas kain, menusukkan benang — adalah bentuk meditasi
               yang paling jujur.

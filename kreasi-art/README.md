@@ -1,4 +1,4 @@
-# kreasi.art — Terapi Seni Kreatif
+# arte.coffee — Terapi Seni Kreatif
 
 Website workshop seni terapi ("Menenangkan Pikiran Sambil Berkarya") yang dibangun
 sesuai [PRDInit.md](../PRDInit.md): Vite + React, animasi penuh dengan GSAP,
@@ -70,10 +70,10 @@ dashboard menyesuaikan peran di tabel `profiles`:
 Akun demo (ganti kata sandi sebelum produksi — email verification saat ini
 dinonaktifkan via `insforge.toml`):
 
-- Admin: `admin@kreasi.art` / `KreasiAdmin!2026`
-- Instruktur: `sari@` `dinda@` `bayu@` `ratna@` `laras@kreasi.art`
+- Admin: `admin@arte.coffee` / `KreasiAdmin!2026`
+- Instruktur: `sari@` `dinda@` `bayu@` `ratna@` `laras@arte.coffee`
   / `Kreasi<Nama>!2026` (cth. `KreasiSari!2026`)
-- Peserta demo: `peserta@kreasi.art` / `KreasiPeserta!2026`
+- Peserta demo: `peserta@arte.coffee` / `KreasiPeserta!2026`
 
 Pendaftaran workshop oleh pengguna yang sedang login otomatis terhubung ke
 akunnya (`user_id`) dan muncul di "Workshop Saya".

@@ -1,4 +1,4 @@
--- Seed the kreasi.art workshop catalog (initial content; managed by admins).
+-- Seed the arte.coffee workshop catalog (initial content; managed by admins).
 -- Deterministic UUIDs (…-4000-8000-…) so schedules can reference workshops
 -- and future migrations can address these rows.
 
